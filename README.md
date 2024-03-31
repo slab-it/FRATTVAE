@@ -46,6 +46,8 @@ python utils/standardize_smiles.py $data_path --n_jobs 24 >> prepare.log
 
 Please change 'yourdirectory' and 'yourenviroment' to the correct paths.
 
+You can download several standardized datasets [here](https://drive.google.com/drive/folders/16LAR-wDdsNEAYbVT8KcG_DJtm6a7GhVP?usp=sharing) (ZINC250K, MOSES, GuacaMol, Polymer, NaturalProducts).
+
 ### 0.1. 　Setting Hyperparameters and Save Directory
 ```
 python preparation.py "/yourdirectory/data/example_standardized.csv" \
@@ -100,7 +102,7 @@ python test.py ${ymlFile} --gpu 0 --k 10000 --N 5 --n_jobs 24 > $path'/test.log'
 After execution, the results of reconstruction and generation are saved in `/savedir/test/.` and `/savedir/generate/.` respectively.
 
 ## Pretrained Model
-In the directory `results`, several trained model are exist. You can generate molecules using the trained model.
+Download result directories containing trained models [here](https://drive.google.com/drive/folders/1VF7lFOlBUr6T5_ESnaj2xbs3hQnV5knz?usp=sharing) and unzip downloaded files. You can generate molecules using trained models.
 \
 ex. GuacaMol
 ```
@@ -111,7 +113,7 @@ export DGLBACKEND="pytorch"
 
 source yourenviroment
 
-path="/yourdirectory/results/GuacaMol_standardized_struct_0216"
+path="/yourdirectory/results/GuacaMol_standardized_struct"
 ymlFile=$path'/input_data/params.yml'
 load_epoch=0
 
