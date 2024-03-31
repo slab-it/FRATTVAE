@@ -117,3 +117,12 @@ load_epoch=0
 
 nohup python3 test.py ${ymlFile} --N 5 --k 10000 --gpu 0 --n_jobs 24 --gen > $path'/test.log' &
 ```
+
+## License
+
+This software is released under a custom license.
+
+Academic use of this software is free and does not require any permission.
+We encourage academic users to cite our research paper (if applicable).
+
+For commercial use, please contact the author for permission at [inukai10@dna.bio.keio.ac.jp].
