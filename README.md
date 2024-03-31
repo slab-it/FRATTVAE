@@ -42,7 +42,7 @@ data_path="/yourdirectory/data/example.csv"
 
 python utils/standardize_smiles.py $data_path --n_jobs 24 >> prepare.log
 ```
-* --n_jobs: Number of cpu workers.
+* `--n_jobs`: Number of cpu workers.
 
 Please change 'yourdirectory' and 'yourenviroment' to the correct paths.
 
@@ -70,8 +70,8 @@ path="/yourdirectory/results/examples_standardized_struct_{MMDD}"
 ymlFile=$path'/input_data/params.yml'
 python preprocessing.py ${ymlfile} --njobs 24 >> $path'/preprocess.log'
 ```
-* --ymlfile: the path of `params.yml`.
-* --n_jobs: Number of cpu workers.
+* `--ymlfile`: the path of `params.yml`.
+* `--n_jobs`: Number of cpu workers.
 
 After execution, `fragments.csv` and `dataset.pkl` are created in `/savedir/input_data/.`
 
@@ -79,10 +79,10 @@ After execution, `fragments.csv` and `dataset.pkl` are created in `/savedir/inpu
 ```
 python train.py ${ymlFile} --gpus 0 1 2 3 --n_jobs 24 --load_epoch $load_epoch --valid > $path'/train'$load_epoch'.log'
 ```
-* --gpus: IDs of GPU. If multiple GPUs are given, they are used for DDP training.
-* --n_jobs: Number of cpu workers.
-* --load_epoch: load `$load_epoch`-epoch trained model. Use to resume learning from any epoch.
-* --valid: To Validate or Not to Validate.
+* `--gpus`: IDs of GPU. If multiple GPUs are given, they are used for DDP training.
+* `--n_jobs`: Number of cpu workers.
+* `--load_epoch`: load `$load_epoch`-epoch trained model. Use to resume learning from any epoch.
+* `--valid`: To Validate or Not to Validate.
 
 After execution, the model checkepoint is saved as `model_best.pth` in `/savedir/model/.`
 
@@ -91,11 +91,11 @@ Caluculate reconstruction accuracy and MOSES+GuacaMol metrics.
 ```
 python test.py ${ymlFile} --gpu 0 --k 10000 --N 5 --n_jobs 24 > $path'/test.log'
 ```
-* --gpu: ID of GPU. multi GPUs are not supported.
-* --k: Number of moldecules generated.
-* --N: Iteration number of generation.
-* --n_jobs: Number of cpu workers.
-* --gen: Set if you only want Generation.
+* `--gpu`: ID of GPU. multi GPUs are not supported.
+* `--k`: Number of moldecules generated.
+* `--N`: Iteration number of generation.
+* `--n_jobs`: Number of cpu workers.
+* `--gen`: Set if you only want Generation.
 
 After execution, the results of reconstruction and generation are saved in `/savedir/test/.` and `/savedir/generate/.` respectively.
 
