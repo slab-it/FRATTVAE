@@ -1,4 +1,4 @@
-# Fragment Tree Transoformer-based VAE (FTTVAE)
+# Fragment Tree Transformer-based VAE (FTTVAE)
 
 This repository contains training and generation code for FTTVAE. FTTVAE can handle large amount of varius compounds ranging from 'Drug-like' to 'Natural'. In addition, the latent space constructed by FTTVAE is useful to molecular generation and optimization.
 
