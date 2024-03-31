@@ -26,9 +26,8 @@ docker build . --network=host -t <IMAGE NAME>
 docker run -itd --runtime=nvidia --shn-size 32g -t <CONTAINER NAME> <IMAGE ID>
 ```
 
-## Precedure of Training and Generation
-### 1. Preprocessing
-### (1.0.) 　Standardize SMILES
+## 0. Preparation
+### (0.0.) 　Standardize SMILES
 To canonicalize and sanitize SMILES, run `exec_standardize.sh` only once. your data must be in csv format and have a column named 'SMILES'. If there is not a column called 'test' in your data, it will be split into train/valid/test data sets (0: train, 1: test, -1: valid). The standardized data is saved as `*_standardized.csv`.
 
 exec_standardize.sh:
@@ -41,12 +40,13 @@ export DGLBACKEND="pytorch"
 source yourenviroment
 data_path="/yourdirectory/data/example.csv"
 
-python utils/standardize_smiles.py $data_path --n_jobs 16 >> prepare.log
+python utils/standardize_smiles.py $data_path --n_jobs 24 >> prepare.log
 ```
+* --n_jobs: Number of cpu workers.
+
 Please change 'yourdirectory' and 'yourenviroment' to the correct paths.
 
-### 1.1. 　Setting Hyperparameters and Save Directory
-Create `savedir` named `dataname_{taskname}_{MMDD}` in `/yourdirectory/results/.`, and `params.yml` which is hyperparameters list in `/savedir/input_data/.`.
+### 0.1. 　Setting Hyperparameters and Save Directory
 ```
 python preparation.py "/yourdirectory/data/example_standardized.csv" \
                       --seed 0 \
@@ -58,4 +58,62 @@ python preparation.py "/yourdirectory/data/example_standardized.csv" \
                       --lr 0.0001 \
                       --kl_w 0.0005 \
                       --l_w 2.0 >> prepare.log 
+```
+Create `savedir` named `dataname_{taskname}_{MMDD}` in `/yourdirectory/results/.`, and `params.yml` which is hyperparameters list in `/savedir/input_data/.`.
+
+## 1. Precedure of Training and Generation
+Please refer to `exec_vae.sh`.
+
+### 1.1. Preprocessing
+```
+path="/yourdirectory/results/examples_standardized_struct_{MMDD}"
+ymlFile=$path'/input_data/params.yml'
+python preprocessing.py ${ymlfile} --njobs 24 >> $path'/preprocess.log'
+```
+* --ymlfile: the path of `params.yml`.
+* --n_jobs: Number of cpu workers.
+
+After execution, `fragments.csv` and `dataset.pkl` are created in `/savedir/input_data/.`
+
+### 1.2. Training
+```
+python train.py ${ymlFile} --gpus 0 1 2 3 --n_jobs 24 --load_epoch $load_epoch --valid > $path'/train'$load_epoch'.log'
+```
+* --gpus: IDs of GPU. If multiple GPUs are given, they are used for DDP training.
+* --n_jobs: Number of cpu workers.
+* --load_epoch: load `$load_epoch`-epoch trained model. Use to resume learning from any epoch.
+* --valid: To Validate or Not to Validate.
+
+After execution, the model checkepoint is saved as `model_best.pth` in `/savedir/model/.`
+
+### 1.3. Reconstruntion and Generation
+Caluculate reconstruction accuracy and MOSES+GuacaMol metrics.
+```
+python test.py ${ymlFile} --gpu 0 --k 10000 --N 5 --n_jobs 24 > $path'/test.log'
+```
+* --gpu: ID of GPU. multi GPUs are not supported.
+* --k: Number of moldecules generated.
+* --N: Iteration number of generation.
+* --n_jobs: Number of cpu workers.
+* --gen: Set if you only want Generation.
+
+After execution, the results of reconstruction and generation are saved in `/savedir/test/.` and `/savedir/generate/.` respectively.
+
+## Pretrained Model
+In the directory `results`, several trained model are exist. You can generate molecules using the trained model.
+\
+ex. GuacaMol
+```
+#!/bin/bash
+
+export PYTHONPATH="/yourdirectory/scripts:$PYTHONPATH"
+export DGLBACKEND="pytorch"
+
+source yourenviroment
+
+path="/yourdirectory/results/GuacaMol_standardized_struct_0216"
+ymlFile=$path'/input_data/params.yml'
+load_epoch=0
+
+nohup python3 test.py ${ymlFile} --N 5 --k 10000 --gpu 0 --n_jobs 24 --gen > $path'/test.log' &
 ```
