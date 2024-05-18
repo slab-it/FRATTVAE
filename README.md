@@ -1,6 +1,6 @@
-# Fragment Tree Transformer-based VAE (FTTVAE)
+# Fragment Tree Transformer-based VAE (FRATTVAE)
 
-This repository contains training and generation code for FTTVAE. FTTVAE can handle large amount of varius compounds ranging from 'Drug-like' to 'Natural'. In addition, the latent space constructed by FTTVAE is useful to molecular generation and optimization.
+This repository contains training and generation code for FRATTVAE. FRATTVAE can handle large amount of varius compounds ranging from 'Drug-like' to 'Natural'. In addition, the latent space constructed by FRATTVAE is useful to molecular generation and optimization.
 
 ## Requirements
 * Python==3.10.8
@@ -61,7 +61,7 @@ python preparation.py "/yourdirectory/data/example_standardized.csv" \
                       --kl_w 0.0005 \
                       --l_w 2.0 >> prepare.log 
 ```
-Create `savedir` named `dataname_{taskname}_{MMDD}` in `/yourdirectory/results/.`, and `params.yml` which is hyperparameters list in `/savedir/input_data/.`.
+After execution, `savedir` named `dataname_{taskname}_{MMDD}` in `/yourdirectory/results/.`, and `params.yml` which is hyperparameters list in `/savedir/input_data/.` are created.
 
 ## 1. Precedure of Training and Generation
 Please refer to `exec_vae.sh`.
@@ -100,6 +100,13 @@ python test.py ${ymlFile} --gpu 0 --k 10000 --N 5 --n_jobs 24 > $path'/test.log'
 * `--gen`: Set if you only want Generation.
 
 After execution, the results of reconstruction and generation are saved in `/savedir/test/.` and `/savedir/generate/.` respectively.
+
+## Conditional VAE
+You can also train FRATTVAE with some conditions(logP, QED, SA _et al._).
+These condition values must be included in the datafile (See example_standardize.csv).
+```
+
+```
 
 ## Pretrained Model
 Download result directories containing trained models [here](https://drive.google.com/drive/folders/1VF7lFOlBUr6T5_ESnaj2xbs3hQnV5knz?usp=sharing) and unzip downloaded files. You can generate molecules using trained models.
