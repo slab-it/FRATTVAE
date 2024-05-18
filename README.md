@@ -48,7 +48,7 @@ Please change 'yourdirectory' and 'yourenviroment' to the correct paths.
 
 You can download several standardized datasets [here](https://drive.google.com/drive/folders/16LAR-wDdsNEAYbVT8KcG_DJtm6a7GhVP?usp=sharing) (ZINC250K, MOSES, GuacaMol, Polymer, NaturalProducts).
 
-### 0.1. 　Setting Hyperparameters and Save Directory
+### 0.1. 　Setting Hyperparameters and Directory to save results
 ```
 python preparation.py "/yourdirectory/data/example_standardized.csv" \
                       --seed 0 \
@@ -117,7 +117,7 @@ path="/yourdirectory/results/GuacaMol_standardized_struct"
 ymlFile=$path'/input_data/params.yml'
 load_epoch=0
 
-nohup python3 test.py ${ymlFile} --N 5 --k 10000 --gpu 0 --n_jobs 24 --gen > $path'/test.log' &
+nohup python3 test.py ${ymlFile} --N 5 --k 10000 --gpu 0 --n_jobs 24 --gen > $path'/generate.log' &
 ```
 
 ## License
