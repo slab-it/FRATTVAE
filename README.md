@@ -49,6 +49,7 @@ Please change 'yourdirectory' and 'yourenviroment' to the correct paths.
 You can download several standardized datasets [here](https://drive.google.com/drive/folders/16LAR-wDdsNEAYbVT8KcG_DJtm6a7GhVP?usp=sharing) (ZINC250K, MOSES, GuacaMol, Polymer, NaturalProducts).
 
 ### 0.1. 　Setting Hyperparameters and Directory to save results
+exec_prepare.sh:
 ```
 python preparation.py "/yourdirectory/data/example_standardized.csv" \
                       --seed 0 \
@@ -102,11 +103,26 @@ python test.py ${ymlFile} --gpu 0 --k 10000 --N 5 --n_jobs 24 > $path'/test.log'
 After execution, the results of reconstruction and generation are saved in `/savedir/test/.` and `/savedir/generate/.` respectively.
 
 ## Conditional VAE
-You can also train FRATTVAE with some conditions(logP, QED, SA _et al._).
-These condition values must be included in the datafile (See example_standardize.csv).
+You can also train FRATTVAE with some conditions(logP, QED, SA, ...).
+Condition values must be included in the datafile.
+Conditions are selected as arguments in `preparation.py`. (See `exec_prepare.sh`)
+If the condition value is a continuous value, enter condition key and value '1' (ex. MW:1).
+If the condition value is a discrete value, enter condition key and value 'number of categories'.
 ```
-
+python preparation.py $data_path \
+                       --seed 0 \
+                       --maxLength 32 \
+                       --maxDegree 16 \
+                       --minSize 1 \
+                       --epoch 1000 \
+                       --batch_size 1024 \
+                       --condition MW:1 \
+                       --condition logP:1 \
+                       --lr 0.0001 \
+                       --kl_w 0.0005 \
+                       --l_w 2.0 >> prepare.log
 ```
+You can exececute conditional training and generation using `cvae/exec_cvae.sh`
 
 ## Pretrained Model
 Download result directories containing trained models [here](https://drive.google.com/drive/folders/1VF7lFOlBUr6T5_ESnaj2xbs3hQnV5knz?usp=sharing) and unzip downloaded files. You can generate molecules using trained models.
