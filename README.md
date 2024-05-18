@@ -1,6 +1,7 @@
 # Fragment Tree Transformer-based VAE (FRATTVAE)
 
 This repository contains training and generation code for FRATTVAE. FRATTVAE can handle large amount of varius compounds ranging from 'Drug-like' to 'Natural'. In addition, the latent space constructed by FRATTVAE is useful to molecular generation and optimization.
+FRATTVAE is implemented in this papar.
 
 ## Requirements
 * Python==3.10.8
