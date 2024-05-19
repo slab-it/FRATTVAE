@@ -65,6 +65,9 @@ python preparation.py "/yourdirectory/data/example_standardized.csv" \
 ```
 After execution, `savedir` named `dataname_{taskname}_{MMDD}` in `/yourdirectory/results/.`, and `params.yml` which is hyperparameters list in `/savedir/input_data/.` are created.
 
+Please adjust hyperparameters (batch_size, maxLength and so on) to match your datasets and GPU capacities.
+For molecules with molecular weights greater than 500, it is recommended that maxLength be 32 or 64.
+
 ## 1. Precedure of Training and Generation
 Please refer to `exec_vae.sh`.
 
