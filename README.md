@@ -126,7 +126,9 @@ python preparation.py $data_path \
 You can exececute conditional training and generation using `cvae/exec_cvae.sh`
 
 ## Pretrained Model
-Download result directories containing trained models [here](https://drive.google.com/drive/folders/1VF7lFOlBUr6T5_ESnaj2xbs3hQnV5knz?usp=sharing) and unzip downloaded files. You can generate molecules using trained models.
+You can generate molecules using trained models.
+Download result directories containing trained models [here](https://drive.google.com/drive/folders/1VF7lFOlBUr6T5_ESnaj2xbs3hQnV5knz?usp=sharing) and unzip downloaded files. 
+Next, please replace `yourdirectory` to your directories and rewrite `batch_size` to match gpu capacity　in `input_data/params.yml`.
 \
 ex. GuacaMol
 ```
@@ -139,7 +141,6 @@ source yourenviroment
 
 path="/yourdirectory/results/GuacaMol_standardized_struct"
 ymlFile=$path'/input_data/params.yml'
-load_epoch=0
 
 nohup python3 test.py ${ymlFile} --N 5 --k 10000 --gpu 0 --n_jobs 24 --gen > $path'/generate.log' &
 ```
