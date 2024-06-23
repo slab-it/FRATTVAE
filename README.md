@@ -158,4 +158,11 @@ We encourage academic users to cite our research paper (if applicable).
 For commercial use, please contact us for permission.
 
 If you have any questions or problems, please let us know.
-MAIL:  [inukai10@dna.bio.keio.ac.jp]
+MAIL:  inukai10@dna.bio.keio.ac.jp
+
+## Citation
+@article{inukai2024tree,
+  title={A Tree-Transformer based VAE with fragment tokenization for large chemical models},
+  author={Inukai, Tensei and Yamato, Aoi and Akiyama, Manato and Sakakibara, Yasubumi},
+  year={2024}
+}
