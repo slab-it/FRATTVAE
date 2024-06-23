@@ -145,7 +145,7 @@ source yourenviroment
 path="/yourdirectory/results/ChEMBL_DB_standardized_struct"
 ymlFile=$path'/input_data/params.yml'
 
-nohup python3 test.py ${ymlFile} --N 5 --k 10000 --gpu 0 --n_jobs 24 --gen > $path'/generate.log' &
+nohup python3 generation.py ${ymlFile} --N 5 --k 10000 --gpu 0 --n_jobs 24 > $path'/generate.log' &
 ```
 
 ## License
