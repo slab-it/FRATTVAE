@@ -34,7 +34,7 @@ def FindRings(mol, bonds: list= None, AtomDone: set= None):
         if (begin.IsInRing() | end.IsInRing()) & (not bond.IsInRing()) & (bond.GetBondTypeAsDouble() < 2):
             if begin.IsInRing() & end.IsInRing():
                 neighbor = 1
-            if begin.IsInRing():
+            elif begin.IsInRing():
                 neighbor = len(end.GetNeighbors()) - 1
             elif end.IsInRing():
                 neighbor = len(begin.GetNeighbors()) - 1

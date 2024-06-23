@@ -1,6 +1,7 @@
-# Fragment Tree Transformer-based VAE (FTTVAE)
+# Fragment Tree Transformer-based VAE (FRATTVAE)
 
-This repository contains training and generation code for FTTVAE. FTTVAE can handle large amount of varius compounds ranging from 'Drug-like' to 'Natural'. In addition, the latent space constructed by FTTVAE is useful to molecular generation and optimization.
+This repository contains training and generation code for FRATTVAE. FRATTVAE can handle large amount of varius compounds ranging from 'Drug-like' to 'Natural'. In addition, the latent space constructed by FRATTVAE is useful to molecular generation and optimization.
+FRATTVAE is implemented in [this papaer](https://chemrxiv.org/engage/chemrxiv/article-details/6649986291aefa6ce169d98b).
 
 ## Requirements
 * Python==3.10.8
@@ -46,7 +47,10 @@ python utils/standardize_smiles.py $data_path --n_jobs 24 >> prepare.log
 
 Please change 'yourdirectory' and 'yourenviroment' to the correct paths.
 
-### 0.1. 　Setting Hyperparameters and Save Directory
+You can download several standardized datasets [here](https://drive.google.com/drive/folders/16LAR-wDdsNEAYbVT8KcG_DJtm6a7GhVP?usp=sharing) (ZINC250K, MOSES, GuacaMol, Polymer, NaturalProducts).
+
+### 0.1. 　Setting Hyperparameters and Directory to save results
+exec_prepare.sh:
 ```
 python preparation.py "/yourdirectory/data/example_standardized.csv" \
                       --seed 0 \
@@ -59,7 +63,10 @@ python preparation.py "/yourdirectory/data/example_standardized.csv" \
                       --kl_w 0.0005 \
                       --l_w 2.0 >> prepare.log 
 ```
-Create `savedir` named `dataname_{taskname}_{MMDD}` in `/yourdirectory/results/.`, and `params.yml` which is hyperparameters list in `/savedir/input_data/.`.
+After execution, `savedir` named `dataname_{taskname}_{MMDD}` in `/yourdirectory/results/.`, and `params.yml` which is hyperparameters list in `/savedir/input_data/.` are created.
+
+Please adjust hyperparameters (batch_size, maxLength and so on) to match your datasets and GPU capacities.
+For molecules with molecular weights greater than 500, it is recommended that maxLength be 32 or 64.
 
 ## 1. Precedure of Training and Generation
 Please refer to `exec_vae.sh`.
@@ -99,10 +106,34 @@ python test.py ${ymlFile} --gpu 0 --k 10000 --N 5 --n_jobs 24 > $path'/test.log'
 
 After execution, the results of reconstruction and generation are saved in `/savedir/test/.` and `/savedir/generate/.` respectively.
 
+## Conditional VAE
+You can also train FRATTVAE with some conditions(logP, QED, SA, ...).
+Condition values must be included in the datafile.
+Conditions are selected as arguments in `preparation.py`. (See `exec_prepare.sh`)
+If the condition value is a continuous value, enter condition key and value '1' (ex. MW:1).
+If the condition value is a discrete value, enter condition key and value 'number of categories'.
+```
+python preparation.py $data_path \
+                       --seed 0 \
+                       --maxLength 32 \
+                       --maxDegree 16 \
+                       --minSize 1 \
+                       --epoch 1000 \
+                       --batch_size 1024 \
+                       --condition MW:1 \
+                       --condition logP:1 \
+                       --lr 0.0001 \
+                       --kl_w 0.0005 \
+                       --l_w 2.0 >> prepare.log
+```
+You can exececute conditional training and generation using `cvae/exec_cvae.sh`
+
 ## Pretrained Model
-In the directory `results`, several trained model are exist. You can generate molecules using the trained model.
+You can generate molecules using pretrained models.
+Download result directories containing trained models [here](https://drive.google.com/drive/folders/1VF7lFOlBUr6T5_ESnaj2xbs3hQnV5knz?usp=sharing) and unzip downloaded files. 
+Next, please replace `yourdirectory` to your directories and rewrite `batch_size` to match your gpu capacity　in `input_data/params.yml`.
 \
-ex. GuacaMol
+ex. ChEMBL + DrugBank
 ```
 #!/bin/bash
 
@@ -111,11 +142,10 @@ export DGLBACKEND="pytorch"
 
 source yourenviroment
 
-path="/yourdirectory/results/GuacaMol_standardized_struct_0216"
+path="/yourdirectory/results/ChEMBL_DB_standardized_struct"
 ymlFile=$path'/input_data/params.yml'
-load_epoch=0
 
-nohup python3 test.py ${ymlFile} --N 5 --k 10000 --gpu 0 --n_jobs 24 --gen > $path'/test.log' &
+nohup python3 test.py ${ymlFile} --N 5 --k 10000 --gpu 0 --n_jobs 24 --gen > $path'/generate.log' &
 ```
 
 ## License
@@ -125,4 +155,16 @@ This software is released under a custom license.
 Academic use of this software is free and does not require any permission.
 We encourage academic users to cite our research paper (if applicable).
 
-For commercial use, please contact the author for permission at [inukai10@dna.bio.keio.ac.jp].
+For commercial use, please contact us for permission.
+
+If you have any questions or problems, please let us know.
+MAIL:  inukai10@dna.bio.keio.ac.jp
+
+## Citation
+```
+@article{inukai2024tree,
+  title={A Tree-Transformer based VAE with fragment tokenization for large chemical models},
+  author={Inukai, Tensei and Yamato, Aoi and Akiyama, Manato and Sakakibara, Yasubumi},
+  year={2024}
+}
+```

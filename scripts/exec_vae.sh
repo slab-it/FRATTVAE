@@ -5,7 +5,7 @@ export DGLBACKEND="pytorch"
 
 source yourenviroment
 
-path="/yourdirectory/results/"
+path="/yourdirectory/results/<save directory>"
 ymlFile=$path'/input_data/params.yml'
 load_epoch=0
 
