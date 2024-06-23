@@ -1,7 +1,7 @@
 # Fragment Tree Transformer-based VAE (FRATTVAE)
 
 This repository contains training and generation code for FRATTVAE. FRATTVAE can handle large amount of varius compounds ranging from 'Drug-like' to 'Natural'. In addition, the latent space constructed by FRATTVAE is useful to molecular generation and optimization.
-FRATTVAE is implemented in this papar.
+FRATTVAE is implemented in [this papaer](https://chemrxiv.org/engage/chemrxiv/article-details/6649986291aefa6ce169d98b).
 
 ## Requirements
 * Python==3.10.8
@@ -129,11 +129,11 @@ python preparation.py $data_path \
 You can exececute conditional training and generation using `cvae/exec_cvae.sh`
 
 ## Pretrained Model
-You can generate molecules using trained models.
+You can generate molecules using pretrained models.
 Download result directories containing trained models [here](https://drive.google.com/drive/folders/1VF7lFOlBUr6T5_ESnaj2xbs3hQnV5knz?usp=sharing) and unzip downloaded files. 
-Next, please replace `yourdirectory` to your directories and rewrite `batch_size` to match gpu capacity　in `input_data/params.yml`.
+Next, please replace `yourdirectory` to your directories and rewrite `batch_size` to match your gpu capacity　in `input_data/params.yml`.
 \
-ex. GuacaMol
+ex. ChEMBL + DrugBank
 ```
 #!/bin/bash
 
@@ -142,7 +142,7 @@ export DGLBACKEND="pytorch"
 
 source yourenviroment
 
-path="/yourdirectory/results/GuacaMol_standardized_struct"
+path="/yourdirectory/results/ChEMBL_DB_standardized_struct"
 ymlFile=$path'/input_data/params.yml'
 
 nohup python3 test.py ${ymlFile} --N 5 --k 10000 --gpu 0 --n_jobs 24 --gen > $path'/generate.log' &
@@ -155,4 +155,7 @@ This software is released under a custom license.
 Academic use of this software is free and does not require any permission.
 We encourage academic users to cite our research paper (if applicable).
 
-For commercial use, please contact the author for permission at [inukai10@dna.bio.keio.ac.jp].
+For commercial use, please contact us for permission.
+
+If you have any questions or problems, please let us know.
+MAIL:  [inukai10@dna.bio.keio.ac.jp]
