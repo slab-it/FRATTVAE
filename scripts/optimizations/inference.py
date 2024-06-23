@@ -22,12 +22,12 @@ from mso.objectives.scoring import ScoringFunction
 from guacamol.goal_directed_generator import GoalDirectedGenerator
 
 sys.path.append(os.path.abspath('../../scripts'))
-from models.fttvae import FTTVAE
+from models.frattvae import FRATTVAE
 from utils.preprocess import debugMolToBRICSfragments, SmilesToMorganFingetPrints, frag2ecfp
 from utils.tree import make_tree, get_pad_features
 from utils.mask import create_mask
 
-# yml_file = '/yourdirectory/fttvae/results/struct_useChiral1_uesugi_max32_1103/input_data/params.yml'
+# yml_file = '/yourdirectory/results/struct_useChiral1_uesugi_max32_1103/input_data/params.yml'
 
 
 def smiles2mol(smiles, decoy= 'c1ccccc1'):
@@ -90,7 +90,7 @@ class InferenceModel(nn.Module):
         self.ndummys = torch.tensor(df_frag['ndummys'].tolist()).long()
 
         num_labels = self.frag_ecfps.shape[0]
-        self.model = FTTVAE(num_labels, self.max_depth, self.max_degree, 
+        self.model = FRATTVAE(num_labels, self.max_depth, self.max_degree, 
                             model_params['feat'], model_params['latent'], 
                             model_params['d_model'], model_params['d_ff'], model_params['nlayer'], 
                             model_params['nhead'], model_params['activation']).to(self.device)

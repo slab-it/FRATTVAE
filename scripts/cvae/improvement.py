@@ -35,7 +35,7 @@ import torch
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import DataLoader, TensorDataset
 
-from models.fttvae import FTTVAE
+from models.frattvae import FRATTVAE
 from models.wrapper import CVAEwrapper
 from cvae.process import generate
 from utils.apps import second2date
@@ -148,7 +148,7 @@ ndummys = torch.tensor(df_frag['ndummys'].tolist()).long()
 
 # load model
 num_labels = len(df_frag)
-model = FTTVAE(num_labels, max_depth, max_degree, feat_dim, latent_dim,
+model = FRATTVAE(num_labels, max_depth, max_degree, feat_dim, latent_dim,
                d_model, d_ff, num_layers, num_heads, activation)
 model = CVAEwrapper(model, pnames, list(props.values())).to(device)
 if args.load_epoch:

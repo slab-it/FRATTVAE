@@ -9,9 +9,9 @@ from utils.tree import FragmentTree, get_pad_features
 from utils.mask import generate_square_subsequent_mask
 from utils.construct import constructMol, isomer_search
 
-from models.fttvae import TreePositionalEncoding
+from models.frattvae import TreePositionalEncoding
 
-class StereoFTTVAE(nn.Module):
+class StereoFRATTVAE(nn.Module):
     def __init__(self, num_tokens: int, depth: int, width: int, 
                  ecfp_dim: int= 2048, feat_dim: int= 2048, latent_dim: int= 256,
                  d_model: int= 512, d_ff: int= 2048, num_layers: int= 6, nhead: int= 8, 

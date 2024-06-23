@@ -36,7 +36,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Subset, DataLoader
 
-from models.fttvae import FTTVAE
+from models.frattvae import FRATTVAE
 from models.property import propLinear
 from models.wrapper import PropWrapper
 from utils.apps import second2date, torch_fix_seed, list2pdData
@@ -171,7 +171,7 @@ if valid:
                               pin_memory= True, collate_fn= collate_pad_fn)
 
 # define model
-model = FTTVAE(num_labels, max_depth, max_degree, feat_dim, latent_dim, 
+model = FRATTVAE(num_labels, max_depth, max_degree, feat_dim, latent_dim, 
                d_model, d_ff, num_layers, num_heads, activation, dropout).to(device)
 model.load_state_dict(torch.load(model_path, map_location= device))
 model.PE._update_weights()      # initialization

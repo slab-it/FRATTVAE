@@ -47,7 +47,7 @@ class TreePositionalEncoding(nn.Module):
         self.tree_weights = self.tree_weights.view(self.depth * self.width, self.d_params)
         
 
-class FTTVAE(nn.Module):
+class FRATTVAE(nn.Module):
     def __init__(self, num_tokens: int, depth: int, width: int, 
                  feat_dim: int= 2048, latent_dim: int= 256,
                  d_model: int= 512, d_ff: int= 2048, num_layers: int= 6, nhead: int= 8, 

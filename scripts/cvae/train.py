@@ -38,7 +38,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data import DataLoader, Subset
 from torch.utils.data.distributed import DistributedSampler
 
-from models.fttvae import FTTVAE
+from models.frattvae import FRATTVAE
 from models.wrapper import CVAEwrapper
 from utils.apps import second2date, torch_fix_seed
 from utils.data import collate_pad_fn
@@ -170,7 +170,7 @@ def train(rank,
 
     # define model
     num_labels = frag_ecfps.shape[0]
-    model = FTTVAE(num_labels, max_depth, max_degree, feat_dim, latent_dim,
+    model = FRATTVAE(num_labels, max_depth, max_degree, feat_dim, latent_dim,
                    d_model, d_ff, num_layers, num_heads, activation, dropout)
     model = CVAEwrapper(model, pnames, list(props.values())).to(device)
     if load_epoch:

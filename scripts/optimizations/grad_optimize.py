@@ -42,7 +42,7 @@ import torch
 from torch.utils.data import DataLoader, TensorDataset
 from torch.distributions.multivariate_normal import MultivariateNormal
 
-from models.fttvae import FTTVAE
+from models.frattvae import FRATTVAE
 from models.property import propLinear
 from process import generate, prop_optimize, constrained_prop_optimize
 from utils.apps import second2date
@@ -131,7 +131,7 @@ if args.load_epoch:
 else:
     pmodel.load_state_dict(torch.load(os.path.join(result_path, 'models', f'pmodel_best.pth'), map_location= device))
 pmodel.eval()
-model = FTTVAE(num_labels, max_depth, max_degree, feat_dim, latent_dim, 
+model = FRATTVAE(num_labels, max_depth, max_degree, feat_dim, latent_dim, 
                d_model, d_ff, num_layers, num_heads, activation).to(device)
 if args.load_epoch:
     load_epoch = args.load_epoch
