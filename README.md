@@ -15,6 +15,15 @@ FRATTVAE is implemented in [this papaer](https://chemrxiv.org/engage/chemrxiv/ar
 
 To install these packages, follow the respective instructions.
 
+## Data availability
+* ZINC250K: https://github.com/kamikaze0923/jtvae/tree/master/data/zinc
+* MOSES: https://github.com/molecularsets/moses/tree/master/data
+* GuacaMol: https://figshare.com/projects/GuacaMol/56639
+* Polymer: https://github.com/wengong-jin/hgraph2graph/tree/master/data/polymers
+* NaturalProducts: https://bioinf-applied.charite.de/supernatural_3
+
+And, you can download several standardized datasets [here](https://drive.google.com/drive/folders/16LAR-wDdsNEAYbVT8KcG_DJtm6a7GhVP?usp=sharing) (ZINC250K, MOSES, GuacaMol, Polymer, NaturalProducts).
+
 ## Quick Start
 Essential packages can be installed via `pip`, but the version of CUDA is up to you (Default: 11.3). 
 Please execute `enviroment.sh` in your python virtual enviroment.
@@ -46,8 +55,6 @@ python utils/standardize_smiles.py $data_path --n_jobs 24 >> prepare.log
 * `--n_jobs`: Number of cpu workers.
 
 Please change 'yourdirectory' and 'yourenviroment' to the correct paths.
-
-You can download several standardized datasets [here](https://drive.google.com/drive/folders/16LAR-wDdsNEAYbVT8KcG_DJtm6a7GhVP?usp=sharing) (ZINC250K, MOSES, GuacaMol, Polymer, NaturalProducts).
 
 ### 0.1. 　Setting Hyperparameters and Directory to save results
 exec_prepare.sh:
@@ -163,7 +170,7 @@ MAIL:  inukai10@dna.bio.keio.ac.jp
 ## Citation
 ```
 @article{inukai2024tree,
-  title={A Tree-Transformer based VAE with fragment tokenization for large chemical models},
+  title={Leveraging Tree-Transformer VAE with fragment tokenization for high-performance large chemical model generation},
   author={Inukai, Tensei and Yamato, Aoi and Akiyama, Manato and Sakakibara, Yasubumi},
   year={2024}
 }
