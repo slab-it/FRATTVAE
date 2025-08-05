@@ -169,5 +169,16 @@ MAIL:  inukai10@dna.bio.keio.ac.jp
 
 ## Citation
 ```
-Inukai, T., Yamato, A., Akiyama, M. et al. Leveraging tree-transformer VAE with fragment tokenization for high-performance large chemical model generation. Commun Chem 8, 228 (2025). https://doi.org/10.1038/s42004-025-01640-w
+@ARTICLE{Inukai2025-zt,
+  title    = "Leveraging tree-transformer {VAE} with fragment tokenization for
+              high-performance large chemical model generation",
+  author   = "Inukai, Tensei and Yamato, Aoi and Akiyama, Manato and
+              Sakakibara, Yasubumi",
+  journal  = "Communications Chemistry",
+  volume   =  8,
+  number   =  1,
+  pages    = "228",
+  month    =  aug,
+  year     =  2025
+}
 ```
