@@ -1,7 +1,7 @@
 # Fragment Tree Transformer-based VAE (FRATTVAE)
 
 This repository contains training and generation code for FRATTVAE. FRATTVAE can handle large amount of varius compounds ranging from 'Drug-like' to 'Natural'. In addition, the latent space constructed by FRATTVAE is useful to molecular generation and optimization.
-FRATTVAE is implemented in [this papaer](https://chemrxiv.org/engage/chemrxiv/article-details/6649986291aefa6ce169d98b).
+FRATTVAE is implemented in [this papaer](https://www.nature.com/articles/s42004-025-01640-w).
 
 ## Requirements
 * Python==3.10.8
@@ -169,9 +169,5 @@ MAIL:  inukai10@dna.bio.keio.ac.jp
 
 ## Citation
 ```
-@article{inukai2024tree,
-  title={Leveraging Tree-Transformer VAE with fragment tokenization for high-performance large chemical model generation},
-  author={Inukai, Tensei and Yamato, Aoi and Akiyama, Manato and Sakakibara, Yasubumi},
-  year={2024}
-}
+Inukai, T., Yamato, A., Akiyama, M. et al. Leveraging tree-transformer VAE with fragment tokenization for high-performance large chemical model generation. Commun Chem 8, 228 (2025). https://doi.org/10.1038/s42004-025-01640-w
 ```
